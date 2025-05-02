@@ -80,7 +80,7 @@ public class Dialogue : MonoBehaviour
         }
     }
 
-    public void NextLine(){
+    void NextLine(){
         if(currentLineIndex < dialogueLines.Length - 1){
             currentLineIndex++;
             dialogueText.text = string.Empty; // Clear the text for the next line
