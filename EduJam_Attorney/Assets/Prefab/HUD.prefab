@@ -148,6 +148,7 @@ GameObject:
   - component: {fileID: 5006648290100297492}
   - component: {fileID: 3147151516664256428}
   - component: {fileID: 5872040326539046580}
+  - component: {fileID: 766489794591285980}
   m_Layer: 5
   m_Name: DialogueBox
   m_TagString: Untagged
@@ -225,11 +226,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c9a5d774ed623644af4252ac9eeb60d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialogueTool: {fileID: 766489794591285980}
   dialogueText: {fileID: 5871618319425908068}
+  useDialogueTool: 1
   dialogueLines:
   - Hello fellow Amoongamerz!!!
   textSpeed: 0.1
   currentLineIndex: 0
+--- !u!114 &766489794591285980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4602627402196369733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1e835fcb61c476cbb3d2e08473d742d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  adminDialogueFile: {fileID: 4900000, guid: 9c939bf925033ef418c2092088f26e2b, type: 3}
+  linesToSkip: 9
+  erroneousStatementReplacementText: ...
+  boolConfirmationText: oui
+  statementStringColumnIndex: 2
+  erroneousBoolColumnIndex: 3
+  forgottenBoolColumnIndex: 4
+  incorrectSubstringColumnIndex: 5
+  correctSubstringColumnIndex: 6
+  wordBankStringsColumnIndex: 7
+  pointsScoredColumnIndex: 8
 --- !u!1 &8961893856136740793
 GameObject:
   m_ObjectHideFlags: 0
