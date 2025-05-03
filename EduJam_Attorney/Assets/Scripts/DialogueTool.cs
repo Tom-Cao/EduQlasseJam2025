@@ -30,10 +30,13 @@ public class DialogueTool : MonoBehaviour
     
     private List<DialogueData> _dialogueData;
     
-    public List<DialogueData> DialogueData => _dialogueData;
-    
     public List<DialogueData> InitializeData()
     {
+        if (adminDialogueFile == null)
+        {
+            return _dialogueData;
+        }
+        
         var adminDialogueEntries = adminDialogueFile.text.Split(Environment.NewLine);
         
         foreach (var adminDialogueEntry in adminDialogueEntries)
