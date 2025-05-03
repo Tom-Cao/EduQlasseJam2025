@@ -39,18 +39,14 @@ public class Dialogue : MonoBehaviour
     private void Start()
     {
         dialogueText.text = string.Empty;
-        StartDialogue();
+        StartDialogue(); // Start the dialogue
     }
-    
-    private void Update()
+
+    // Update is called once per frame
+    /*void Update()
     {
-        if(Input.GetKeyDown(KeyCode.RightArrow)){
-            NextLineInput(); // Check for space key press
-        }
-        if(Input.GetKeyDown(KeyCode.LeftArrow)){
-            PreviousLineInput(); // Check for left arrow key press
-        }
-    }
+        
+    }*/
 
     public void PreviousLineInput()
     {

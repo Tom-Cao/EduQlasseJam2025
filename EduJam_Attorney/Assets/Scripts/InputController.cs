@@ -4,15 +4,16 @@ using UnityEngine.InputSystem;
 public class InputController : MonoBehaviour
 {
     // Grab input system
-    SimpleInput controls;
+    //SimpleInput controls;
 
     // Main dialogue system
     Dialogue dialogue;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Awake()
+    void Start()
     {
-        controls = new SimpleInput();
+        
+        //controls = new SimpleInput();
 
         if (dialogue == null)
         {
@@ -22,42 +23,39 @@ public class InputController : MonoBehaviour
                 Debug.LogError("Dialogue instance not found in Input. Make sure the Dialogue script is attached to a GameObject in the scene.");
             }
         }
-
-        // 3 actions: Text forward, Text rollback, Interact and Objection
-        controls.Player.Interact.performed += ctx => InteractAction();
-        controls.Player.Objection.performed += ctx => ObjectionAction();
-        controls.Player.Next.performed += ctx => TextForwardAction();
-        controls.Player.Previous.performed += ctx => TextRollbackAction();
-    }
-
-    private void OnEnable()
-    {
-        controls.Player.Enable();
-    }
-    
-    private void OnDisable()
-    {
-        controls.Player.Disable();
     }
 
     // Interact action
-    private void InteractAction()
+    public void InteractAction(InputAction.CallbackContext context)
     {
-        
+        if (context.performed) // Check if the action was performed
+        {
+            Debug.Log("Interact action triggered.");
+        }
     }
     // Objection action
-    private void ObjectionAction()
+    public void ObjectionAction(InputAction.CallbackContext context)
     {
-       
+        if (context.performed) // Check if the action was performed
+        {
+            Debug.Log("OBJECTION!!!!!");
+        }
     }
     // Text forward action
-    private void TextForwardAction()
+    public void TextForwardAction(InputAction.CallbackContext context)
     {
-        dialogue.NextLineInput();
+        if (context.performed) // Check if the action was performed
+        {
+            dialogue.NextLineInput();
+        }
     }
+    
     // Text rollback action
-    private void TextRollbackAction()
+    public void TextRollbackAction(InputAction.CallbackContext context)
     {
-        dialogue.PreviousLineInput();
+        if(context.performed) // Check if the action was performed
+        {
+            dialogue.PreviousLineInput();
+        }
     }
 }
