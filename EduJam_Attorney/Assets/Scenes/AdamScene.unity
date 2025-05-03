@@ -275,7 +275,10 @@ MonoBehaviour:
   dialogueText: {fileID: 1418235393}
   dialogueLines:
   - Hello fellow Amoongamerz!!!
+  - We are cooking real rizz right now.
+  - Slap dat subscribe button and slam the bell icon!!!
   textSpeed: 0.1
+  currentLineIndex: 0
 --- !u!114 &336754292
 MonoBehaviour:
   m_ObjectHideFlags: 0

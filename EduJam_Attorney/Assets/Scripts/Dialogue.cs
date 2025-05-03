@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using UnityEditor;
 
 public class Dialogue : MonoBehaviour
 {
@@ -36,11 +37,23 @@ public class Dialogue : MonoBehaviour
         StartDialogue(); // Start the dialogue
     }
 
-    /*// Update is called once per frame
+    // Update is called once per frame
     void Update()
     {
-        
-    }*/
+        if(Input.GetKeyDown(KeyCode.Space)){
+            nextLineInput(); // Check for space key press
+        }
+    }
+
+    public void NextLineInput(){
+        if(dialogueText.text == dialogueLines[currentLineIndex]){
+                NextLine(); // Go to the next line when space is pressed
+            }
+            else{
+                StopAllCoroutines(); // Stop typing if space is pressed again
+                dialogueText.text = dialogueLines[currentLineIndex]; // Show the full line
+        }
+    }
 
     void StartDialogue(){
         currentLineIndex = 0;
