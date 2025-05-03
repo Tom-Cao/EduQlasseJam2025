@@ -65,7 +65,7 @@ public class Dialogue : MonoBehaviour
         }
     }
 
-    private void NextLineInput()
+    public void NextLineInput()
     {
         var statementText = _useDialogueData ? _dialogueData[currentLineIndex].Statement : dialogueLines[currentLineIndex];
         
