@@ -4,13 +4,31 @@ using System.Collections;
 
 public class Dialogue : MonoBehaviour
 {
+    public static Dialogue instance; // Singleton instance of the Dialogue class
+    
     [SerializeField] TextMeshProUGUI dialogueText;
     [SerializeField] string[] dialogueLines;
     [SerializeField] float textSpeed = 0.5f;
 
-    private int currentLineIndex = 0;
+    //getter and setter for the currentLineIndex
+    public int CurrentLineIndex
+    {
+        get { return currentLineIndex; }
+        set { currentLineIndex = value; }
+    }
+
+    [SerializeField] int currentLineIndex = 0;
 
 
+
+    void Awake(){
+        if(instance == null){
+            instance = this; // Assign the instance if it's null
+        }
+        else{
+            Destroy(gameObject); // Destroy duplicate instances
+        }
+    }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -18,11 +36,11 @@ public class Dialogue : MonoBehaviour
         StartDialogue(); // Start the dialogue
     }
 
-    // Update is called once per frame
+    /*// Update is called once per frame
     void Update()
     {
         
-    }
+    }*/
 
     void StartDialogue(){
         currentLineIndex = 0;
