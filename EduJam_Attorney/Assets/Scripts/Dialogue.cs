@@ -1,13 +1,15 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
-using UnityEditor;
+using System.Collections.Generic;
 
 public class Dialogue : MonoBehaviour
 {
     public static Dialogue instance; // Singleton instance of the Dialogue class
-    
-    [SerializeField] TextMeshProUGUI dialogueText;
+
+    [SerializeField] private DialogueTool dialogueTool;
+    [SerializeField] private TextMeshProUGUI dialogueText;
+    [SerializeField] private bool useDialogueTool;
     [SerializeField] string[] dialogueLines;
     [SerializeField] float textSpeed = 0.5f;
 
@@ -20,55 +22,65 @@ public class Dialogue : MonoBehaviour
 
     [SerializeField] int currentLineIndex = 0;
 
+    private List<DialogueData> _dialogueData;
+    private bool _useDialogueData;
 
-
-    void Awake(){
+    private void Awake(){
         if(instance == null){
             instance = this; // Assign the instance if it's null
+            _dialogueData = dialogueTool.InitializeData();
+            _useDialogueData = useDialogueTool && _dialogueData is { Count: > 0 };
         }
         else{
             Destroy(gameObject); // Destroy duplicate instances
         }
     }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    
+    private void Start()
     {
-        dialogueText.text = string.Empty; // Clear the text at the start
-        StartDialogue(); // Start the dialogue
+        dialogueText.text = string.Empty;
+        StartDialogue();
     }
-
-    // Update is called once per frame
-    void Update()
+    
+    private void Update()
     {
         if(Input.GetKeyDown(KeyCode.Space)){
-            nextLineInput(); // Check for space key press
+            NextLineInput(); // Check for space key press
         }
     }
 
-    public void NextLineInput(){
-        if(dialogueText.text == dialogueLines[currentLineIndex]){
-                NextLine(); // Go to the next line when space is pressed
-            }
-            else{
-                StopAllCoroutines(); // Stop typing if space is pressed again
-                dialogueText.text = dialogueLines[currentLineIndex]; // Show the full line
+    private void NextLineInput()
+    {
+        var statementText = _useDialogueData ? _dialogueData[currentLineIndex].Statement : dialogueLines[currentLineIndex];
+        
+        if(dialogueText.text == statementText){
+            NextLine(); // Go to the next line when space is pressed
+        }
+        else{
+            StopAllCoroutines(); // Stop typing if space is pressed again
+            dialogueText.text = statementText; // Show the full line
         }
     }
 
-    void StartDialogue(){
+    private void StartDialogue(){
         currentLineIndex = 0;
         StartCoroutine(TypeLetters());
     }
 
-    IEnumerator TypeLetters(){
-        foreach(char letter in dialogueLines[currentLineIndex].ToCharArray()){
+    private IEnumerator TypeLetters(){
+        var statementText = _useDialogueData ? _dialogueData[currentLineIndex].Statement : dialogueLines[currentLineIndex];
+        
+        foreach(var letter in statementText){
             dialogueText.text += letter;
             yield return new WaitForSeconds(textSpeed);
         }
     }
 
-    public void NextLine(){
-        if(currentLineIndex < dialogueLines.Length - 1){
+    public void NextLine()
+    {
+        var statementsCount = _useDialogueData ? _dialogueData.Count : dialogueLines.Length;
+        
+        if(currentLineIndex < statementsCount - 1){
             currentLineIndex++;
             dialogueText.text = string.Empty; // Clear the text for the next line
             StartCoroutine(TypeLetters());
