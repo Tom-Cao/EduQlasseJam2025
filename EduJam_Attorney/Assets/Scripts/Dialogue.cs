@@ -30,6 +30,7 @@ public class Dialogue : MonoBehaviour
             instance = this; // Assign the instance if it's null
             _dialogueData = dialogueTool.InitializeData();
             _useDialogueData = useDialogueTool && _dialogueData is { Count: > 0 };
+            dialogueText.text = string.Empty; // Clear the text at the start
         }
         else{
             Destroy(gameObject); // Destroy duplicate instances
@@ -40,17 +41,16 @@ public class Dialogue : MonoBehaviour
     {
         dialogueText.text = string.Empty;
         StartDialogue();
+        StartDialogue(); // Start the dialogue
     }
     
     private void Update()
+
+    // Update is called once per frame
+    /*void Update()
     {
-        if(Input.GetKeyDown(KeyCode.RightArrow)){
-            NextLineInput(); // Check for space key press
-        }
-        if(Input.GetKeyDown(KeyCode.LeftArrow)){
-            PreviousLineInput(); // Check for left arrow key press
-        }
-    }
+        
+    }*/
 
     public void PreviousLineInput()
     {
