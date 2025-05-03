@@ -44,8 +44,24 @@ public class Dialogue : MonoBehaviour
     
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space)){
+        if(Input.GetKeyDown(KeyCode.RightArrow)){
             NextLineInput(); // Check for space key press
+        }
+        if(Input.GetKeyDown(KeyCode.LeftArrow)){
+            PreviousLineInput(); // Check for left arrow key press
+        }
+    }
+
+    public void PreviousLineInput()
+    {
+        var statementText = _useDialogueData ? _dialogueData[currentLineIndex].Statement : dialogueLines[currentLineIndex];
+        
+        if(dialogueText.text == statementText){
+            PreviousLine(); // Go to the previous line when left arrow is pressed
+        }
+        else{
+            StopAllCoroutines(); // Stop typing if left arrow is pressed again
+            dialogueText.text = statementText; // Show the full line
         }
     }
 
@@ -87,6 +103,17 @@ public class Dialogue : MonoBehaviour
         }
         else{
             gameObject.SetActive(false); // Deactivate the dialogue box when finished
+        }
+    }
+
+    void PreviousLine(){
+        if(currentLineIndex > 0 ){
+            currentLineIndex--;
+            dialogueText.text = string.Empty;
+            StartCoroutine(TypeLetters());
+        }
+        else{
+            //Make a sound or visual cue that the player is at the beginning of the dialogue
         }
     }
 }

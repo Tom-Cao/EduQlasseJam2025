@@ -53,11 +53,11 @@ public class InputController : MonoBehaviour
     // Text forward action
     private void TextForwardAction()
     {
-        dialogue.NextLine();
+        dialogue.NextLineInput();
     }
     // Text rollback action
     private void TextRollbackAction()
     {
-        
+        dialogue.PreviousLineInput();
     }
 }
