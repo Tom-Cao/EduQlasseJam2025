@@ -414,6 +414,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1138287162267058323, guid: 2e80b9361d5e0f74bac0a5088bdc72c7, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 519420031}
     - target: {fileID: 2508134221000790396, guid: 2e80b9361d5e0f74bac0a5088bdc72c7, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -493,18 +497,6 @@ PrefabInstance:
     - target: {fileID: 2508134221000790396, guid: 2e80b9361d5e0f74bac0a5088bdc72c7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5872040326539046580, guid: 2e80b9361d5e0f74bac0a5088bdc72c7, type: 3}
-      propertyPath: dialogueLines.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5872040326539046580, guid: 2e80b9361d5e0f74bac0a5088bdc72c7, type: 3}
-      propertyPath: 'dialogueLines.Array.data[1]'
-      value: gooner
-      objectReference: {fileID: 0}
-    - target: {fileID: 5872040326539046580, guid: 2e80b9361d5e0f74bac0a5088bdc72c7, type: 3}
-      propertyPath: 'dialogueLines.Array.data[2]'
-      value: ARIIIIIISE!!!!
       objectReference: {fileID: 0}
     - target: {fileID: 8961893856136740793, guid: 2e80b9361d5e0f74bac0a5088bdc72c7, type: 3}
       propertyPath: m_Name
