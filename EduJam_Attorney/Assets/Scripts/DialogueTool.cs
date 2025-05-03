@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public struct DialogueData
@@ -17,7 +19,9 @@ public class DialogueTool : MonoBehaviour
 {
     [Header("Text")]
     [SerializeField] private TextAsset adminDialogueFile;
-    [SerializeField] private string erroneousStatementReplacementText;
+    [SerializeField, Min(0)] private int linesToSkip;
+    [SerializeField] private string erroneousStatementReplacementText = "...";
+    [SerializeField] private string boolConfirmationText = "oui";
     
     [Header("Indexing")]
     [SerializeField] private int statementStringColumnIndex;
@@ -28,7 +32,9 @@ public class DialogueTool : MonoBehaviour
     [SerializeField] private int wordBankStringsColumnIndex;
     [SerializeField] private int pointsScoredColumnIndex;
     
-    private List<DialogueData> _dialogueData;
+    private Regex _validateNumberRegex;
+    
+    private readonly List<DialogueData> _dialogueData = new();
     
     public List<DialogueData> InitializeData()
     {
@@ -37,26 +43,73 @@ public class DialogueTool : MonoBehaviour
             return _dialogueData;
         }
         
+        _validateNumberRegex = new Regex("^\\d+");
+        
         var adminDialogueEntries = adminDialogueFile.text.Split(Environment.NewLine);
+        var skipLineCounter = 0;
         
         foreach (var adminDialogueEntry in adminDialogueEntries)
         {
-            _dialogueData.Add(ProcessDialogueData(adminDialogueEntry));
+            if (skipLineCounter < linesToSkip)
+            {
+                skipLineCounter++;
+                continue;
+            }
+
+            var dialogueData = ProcessDialogueData(adminDialogueEntry);
+            
+            if (dialogueData != null)
+            {
+                _dialogueData.Add((DialogueData)dialogueData);
+            }
         }
         
         return _dialogueData;
     }
     
-    private DialogueData ProcessDialogueData(string adminDialogueEntry)
+    private DialogueData? ProcessDialogueData(string adminDialogueEntry)
     {
+        // Return if the entry is empty
+        if (string.IsNullOrEmpty(adminDialogueEntry))
+        {
+            return null;
+        }
+        
         var data = adminDialogueEntry.Split(";");
         
+        // Return if the statement is empty
         var statementString = data[statementStringColumnIndex];
-        var isStatementErroneous = Convert.ToBoolean(data[erroneousBoolColumnIndex]);
-        var isErrorCausedByForgetfulness = Convert.ToBoolean(data[forgottenBoolColumnIndex]);
-        var correctSubstring = data[correctSubstringColumnIndex];
-        var wordBankStrings = data[wordBankStringsColumnIndex].Split(",").ToList();
+        if (string.IsNullOrWhiteSpace(statementString))
+        {
+            return null;
+        }
         
+        // Return if the necessary information is empty
+        var isStatementErroneous = data[erroneousBoolColumnIndex].ToLower().Contains(boolConfirmationText);
+        var incorrectSubstring = data[incorrectSubstringColumnIndex];
+        var correctSubstring = data[correctSubstringColumnIndex];
+        
+        if (isStatementErroneous &&
+            (string.IsNullOrWhiteSpace(incorrectSubstring) || string.IsNullOrWhiteSpace(correctSubstring)))
+        {
+            return null;
+        }
+        
+        var pointsTextExtracted = string.Join("",
+            _validateNumberRegex.Matches(data[pointsScoredColumnIndex]).Select(x => x.Value).ToArray());
+        
+        var isErrorCausedByForgetfulness = data[forgottenBoolColumnIndex].ToLower().Contains(boolConfirmationText);
+        var wordBankStrings = data[wordBankStringsColumnIndex].Split(", ").ToList();
+        var pointsScored = pointsTextExtracted.Length == 0 ? 0 : Convert.ToInt32(pointsTextExtracted);
+        
+        // Process statement depending on whether the statement is erroneous or not
+        var processedStatement = isStatementErroneous
+            ? statementString
+            : statementString.Replace(correctSubstring, isErrorCausedByForgetfulness
+                ? erroneousStatementReplacementText
+                : incorrectSubstring);
+        
+        // Check if the answer is within the options
         if (!wordBankStrings.Contains(correctSubstring))
         {
             wordBankStrings.Add(correctSubstring);
@@ -64,14 +117,12 @@ public class DialogueTool : MonoBehaviour
         
         var dialogueData = new DialogueData
         {
-            Statement = !isStatementErroneous ? statementString :
-                statementString.Replace(correctSubstring, isErrorCausedByForgetfulness ? erroneousStatementReplacementText :
-                    data[incorrectSubstringColumnIndex]),
+            Statement = processedStatement,
             IsStatementErroneous = isStatementErroneous,
             IsErrorCausedByForgetfulness = isErrorCausedByForgetfulness,
             CorrectSubstring = correctSubstring,
             WordBankStrings = wordBankStrings,
-            PointsScored = Convert.ToInt32(data[pointsScoredColumnIndex]),
+            PointsScored = pointsScored,
         };
         
         return dialogueData;
