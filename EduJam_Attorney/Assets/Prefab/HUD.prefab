@@ -149,7 +149,6 @@ GameObject:
   - component: {fileID: 3147151516664256428}
   - component: {fileID: 5872040326539046580}
   - component: {fileID: 766489794591285980}
-  - component: {fileID: 8256510088395032225}
   m_Layer: 5
   m_Name: DialogueBox
   m_TagString: Untagged
@@ -227,7 +226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c9a5d774ed623644af4252ac9eeb60d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueTool: {fileID: 8256510088395032225}
+  dialogueTool: {fileID: 766489794591285980}
   dialogueText: {fileID: 5871618319425908068}
   useDialogueTool: 1
   dialogueLines:
@@ -259,29 +258,6 @@ MonoBehaviour:
   correctSubstringColumnIndex: 6
   wordBankStringsColumnIndex: 7
   pointsScoredColumnIndex: 8
---- !u!114 &8256510088395032225
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4602627402196369733}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1e835fcb61c476cbb3d2e08473d742d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  adminDialogueFile: {fileID: 0}
-  linesToSkip: 0
-  erroneousStatementReplacementText: 
-  boolConfirmationText: oui
-  statementStringColumnIndex: 0
-  erroneousBoolColumnIndex: 0
-  forgottenBoolColumnIndex: 0
-  incorrectSubstringColumnIndex: 0
-  correctSubstringColumnIndex: 0
-  wordBankStringsColumnIndex: 0
-  pointsScoredColumnIndex: 0
 --- !u!1 &6130498265212133048
 GameObject:
   m_ObjectHideFlags: 0
@@ -423,7 +399,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4628630384934041858}
+  - {fileID: 2102399977762779628}
   - {fileID: 4297231399011956434}
   - {fileID: 5156701811992450967}
   m_Father: {fileID: 0}
@@ -496,7 +472,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!1 &8985134534615402210
+--- !u!1 &9209830824614375937
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -504,37 +480,37 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4628630384934041858}
-  - component: {fileID: 3652813496146987431}
+  - component: {fileID: 2102399977762779628}
+  - component: {fileID: 773292731723249608}
   m_Layer: 0
-  m_Name: Background
+  m_Name: Diapositive1_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4628630384934041858
+--- !u!4 &2102399977762779628
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8985134534615402210}
+  m_GameObject: {fileID: 9209830824614375937}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -9735.212}
-  m_LocalScale: {x: 151.43663, y: 162.25354, z: 108.16902}
+  m_LocalPosition: {x: -960, y: -540.8451, z: 0}
+  m_LocalScale: {x: 3.976802, y: 3.976802, z: 3.976802}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2508134221000790396}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &3652813496146987431
+--- !u!212 &773292731723249608
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8985134534615402210}
+  m_GameObject: {fileID: 9209830824614375937}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -571,7 +547,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -99
+  m_SortingOrder: 0
   m_Sprite: {fileID: 124544503961861040, guid: 19ccdabcd0724394dbe1acb520cea82e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

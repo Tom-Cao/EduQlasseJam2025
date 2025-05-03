@@ -360,7 +360,16 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      objectionSpriteSheet_0: 4047941561468078138
+      objectionSpriteSheet_1: -7413643781178760929
+      objectionSpriteSheet_2: -7249837106805464179
+      objectionSpriteSheet_3: 2606529205233730487
+      objectionSpriteSheet_4: 5991266075692813435
+      objectionSpriteSheet_5: 5427151369767335788
+      objectionSpriteSheet_6: -8983921496568608658
+      objectionSpriteSheet_7: -8786369940505045809
+      objectionSpriteSheet_8: 8143821534066969017
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
