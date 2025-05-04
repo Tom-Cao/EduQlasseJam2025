@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -82,6 +83,8 @@ public class TeacherManager : MonoBehaviour
 
         HUDManager HUD = HUDManager.instance;
         HUD.ToggleReasonPanel();
+        PlayerSettings.instance.AddScore(10);
+        HUD.pointsText.text = PlayerSettings.instance.Score.ToString();
         player.HandleCorrectObjection(dialogueData);
     }
 
@@ -89,13 +92,17 @@ public class TeacherManager : MonoBehaviour
     {
         Debug.Log($"[{nameof(TeacherManager)} - {nameof(HandleIncorrectObjection)}]");
         StartCoroutine(ErrorSoundDelay(2f));
+        
         // do any animations and shit here
     }
 
     private IEnumerator ErrorSoundDelay(float delay){
         yield return new WaitForSeconds(delay);
         AudioManager audioManager = AudioManager.instance;
+        HUDManager hUDManager = HUDManager.instance;
         audioManager.PlaySource(audioManager.errorSFX);
+        PlayerSettings.instance.AddScore(-10);
+        hUDManager.pointsText.text = PlayerSettings.instance.Score.ToString();
     }
 
     public void HandleObjectionEnd(){

@@ -145,6 +145,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ObjectionMaleSFX: {fileID: 8300000, guid: 4db440b10825af54c9c57e189a2f640b, type: 3}
   ObjectionFemaleSFX: {fileID: 8300000, guid: eaabc1398d37e7744b6744a99cfafead, type: 3}
+  errorSFX: {fileID: 8300000, guid: 0d0190f467374064a897e37e41086739, type: 3}
   oneShotSource: {fileID: 9028115043288817773}
   DialogueBGMClip: {fileID: 8300000, guid: 52b5d60c59fe65e468b74220f26529df, type: 3}
   BGMusic: {fileID: 3717513414156790635}

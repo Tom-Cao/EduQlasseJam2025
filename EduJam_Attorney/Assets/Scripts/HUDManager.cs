@@ -1,3 +1,5 @@
+using System;
+using TMPro;
 using UnityEngine;
 
 public class HUDManager : MonoBehaviour
@@ -9,6 +11,8 @@ public class HUDManager : MonoBehaviour
     [SerializeField] private GameObject nextButton;
     [ContextMenuItem("Toggle reason panel", "ToggleReasonPanel")]
     [SerializeField] private GameObject objectionReasonPanel; // Reference to the player settings GameObject
+
+    public TextMeshProUGUI pointsText; // Reference to the points Panels TextMeshProUGUI component
 
     // SINGLETON INSTANCE
     public static HUDManager instance;
@@ -81,6 +85,17 @@ public class HUDManager : MonoBehaviour
                 Debug.LogError("ObjectionReasonPanel GameObject not found in the scene. Make sure it is present.");
             }
         }
+
+        if(pointsText == null)
+        {
+            pointsText = GameObject.Find("PointsText").GetComponent<TextMeshProUGUI>(); // Find the points text GameObject in the scene
+            if (pointsText == null)
+            {
+                Debug.LogError("PointsText GameObject not found in the scene. Make sure it is present.");
+            }
+        }
+        pointsText.text = String.Empty; // Initialize the points text to empty
+        pointsText.text += "0"; // Initialize the points text to 0
     }
 
     // Hide or unhide the dialogue box
