@@ -47,7 +47,12 @@ public class Dialogue : MonoBehaviour
     {
         
     }*/
-
+    
+    public DialogueData? GetCurrentDialogueData()
+    {
+        return useDialogueTool ? _dialogueData[currentLineIndex] : null;
+    }
+    
     public void PreviousLineInput()
     {
         var statementText = _useDialogueData ? _dialogueData[currentLineIndex].Statement : dialogueLines[currentLineIndex];
