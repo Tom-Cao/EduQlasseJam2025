@@ -97,7 +97,7 @@ public class ReasonPanel : MonoBehaviour
 
             // Configure the Button component
             UnityEngine.UI.Button uiButton = button.GetComponent<UnityEngine.UI.Button>();
-            uiButton.onClick.AddListener(() => Debug.Log("Button " + i + " clicked")); // Add a click listener
+            uiButton.onClick.AddListener(() => TeacherManager.Instance.HandleReasonPanelChoice(text.text)); // Add a click listener
         }
     }
 

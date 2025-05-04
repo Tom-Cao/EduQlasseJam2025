@@ -83,8 +83,7 @@ public class TeacherManager : MonoBehaviour
 
         HUDManager HUD = HUDManager.instance;
         HUD.ToggleReasonPanel();
-        PlayerSettings.instance.AddScore(10);
-        HUD.pointsText.text = PlayerSettings.instance.Score.ToString();
+
         player.HandleCorrectObjection(dialogueData);
     }
 
@@ -103,6 +102,9 @@ public class TeacherManager : MonoBehaviour
         audioManager.PlaySource(audioManager.errorSFX);
         PlayerSettings.instance.AddScore(-10);
         hUDManager.pointsText.text = PlayerSettings.instance.Score.ToString();
+
+        // Reset event
+        ObjectionState.instance.onObjectionEnd.Invoke();
     }
 
     public void HandleObjectionEnd(){
@@ -120,5 +122,27 @@ public class TeacherManager : MonoBehaviour
     private void HandleMethodFailure()
     {
         Debug.LogError($"Failure occurred in {nameof(TeacherManager)}.");
+    }
+
+    public void HandleReasonPanelChoice(string choice)
+    {
+        Debug.Log("Player chose: " + choice);
+
+        // Check if choice is the same as current statement correct answer
+        int currentLineIndex = dialogue.CurrentLineIndex;
+        DialogueData currentDialogueData = dialogue.DialogueData[currentLineIndex];
+
+        string correctSubstring = currentDialogueData.CorrectSubstring;
+        if (choice.Equals(correctSubstring, System.StringComparison.OrdinalIgnoreCase))
+        {
+            PlayerSettings.instance.AddScore(10);
+            HUDManager.instance.pointsText.text = PlayerSettings.instance.Score.ToString();
+        }
+        else
+        {
+            PlayerSettings.instance.AddScore(-10);
+            HUDManager.instance.pointsText.text = PlayerSettings.instance.Score.ToString();
+        }
+        ObjectionState.instance.onObjectionEnd.Invoke();
     }
 }

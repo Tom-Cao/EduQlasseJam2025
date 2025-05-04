@@ -112,8 +112,6 @@ public class InputController : MonoBehaviour
         {
             if (objectionState.currentState == ObjectionState.ObjectionStateType.Objection) // Check if the current state is Objection
             {
-                Debug.Log("Objection state end");
-                objectionState.onObjectionEnd.Invoke(); // Invoke the end of the objection state
                 return; // If in objection state, do nothing
             }
             audioManager.BGMusic.Stop(); // Stop the background music

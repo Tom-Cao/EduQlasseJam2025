@@ -9,8 +9,6 @@ public class HUDManager : MonoBehaviour
     [SerializeField] private GameObject objectionWord;
     [SerializeField] private GameObject previousButton;
     [SerializeField] private GameObject nextButton;
-    [ContextMenuItem("Toggle reason panel", "ToggleReasonPanel")]
-    [SerializeField] private GameObject objectionReasonPanel; // Reference to the player settings GameObject
 
     public TextMeshProUGUI pointsText; // Reference to the points Panels TextMeshProUGUI component
 
@@ -74,15 +72,6 @@ public class HUDManager : MonoBehaviour
             if (nextButton == null)
             {
                 Debug.LogError("NextButton GameObject not found in the scene. Make sure it is present.");
-            }
-        }
-
-        if (objectionReasonPanel == null)
-        {
-            objectionReasonPanel = GameObject.Find("ObjectionReasonPanel"); // Find the objection reason panel GameObject in the scene
-            if (objectionReasonPanel == null)
-            {
-                Debug.LogError("ObjectionReasonPanel GameObject not found in the scene. Make sure it is present.");
             }
         }
 
@@ -168,7 +157,7 @@ public class HUDManager : MonoBehaviour
     public void ToggleReasonPanel()
     {
         ReasonPanel reasonPanel = ReasonPanel.instance; // Get the instance of the ReasonPanel script
-        if (objectionReasonPanel != null)
+        if (reasonPanel != null)
         {
             reasonPanel.hidden = !reasonPanel.hidden; // Toggle the hidden state of the reason panel
         }
@@ -180,19 +169,9 @@ public class HUDManager : MonoBehaviour
 
     public void ShowHideObjectionReasonPanel(bool active)
     {
-        if (objectionReasonPanel != null)
+        if ( ReasonPanel.instance != null)
         {
-            if (active)
-            {
-                // Move it up a bit
-                objectionReasonPanel.transform.localPosition += new Vector3(0, 900f, 0); // Adjust the position of the panel
-            }
-            else
-            {
-                // Move it down a bit
-                objectionReasonPanel.transform.localPosition -= new Vector3(0, 900f, 0); // Adjust the position of the panel
-            }
-            objectionReasonPanel.SetActive(active); // Set the active state of the objection reason panel GameObject
+            ReasonPanel.instance.hidden = !active; // Set the hidden state of the reason panel
         }
         else
         {
