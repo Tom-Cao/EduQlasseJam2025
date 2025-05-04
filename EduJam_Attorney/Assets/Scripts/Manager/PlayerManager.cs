@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour
 {
     private TeacherManager teacher;
-    private int points;
     
     public static PlayerManager Instance;
 
@@ -34,7 +33,6 @@ public class PlayerManager : MonoBehaviour
     public void HandleIncorrectObjection(DialogueData dialogueData)
     {
         Debug.Log($"[{nameof(PlayerManager)} - {nameof(HandleIncorrectObjection)}]");
-        points -= dialogueData.PointsScored;
     }
     
     public void HandleAnswerSelected()

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TeacherManager : MonoBehaviour
 {
@@ -37,8 +38,8 @@ public class TeacherManager : MonoBehaviour
             }
             
         }
-
-        isObjected = new bool[dialogue.DialogueLines.Length];
+        
+        isObjected = new bool[dialogue.GetDialogueStatements().Length];
         Debug.Log("Incorrect Number of Statements: " + IncorrectObjectionIndices.Count);
     }
 
@@ -71,7 +72,7 @@ public class TeacherManager : MonoBehaviour
         var dialogueData = (DialogueData)nullableDialogueData;
         if (nullableDialogueData is { IsStatementErroneous: true }&& !isObjected[dialogue.CurrentLineIndex])
         {
-            if(!(dialogue.CurrentLineIndex < 0 && dialogue.CurrentLineIndex < dialogue.DialogueLines.Length))
+            if(!(dialogue.CurrentLineIndex < 0 && dialogue.CurrentLineIndex < dialogue.GetDialogueStatements().Length))
                 isObjected[dialogue.CurrentLineIndex] = true;
             HandleCorrectObjection(dialogueData);
         }
@@ -97,8 +98,6 @@ public class TeacherManager : MonoBehaviour
     {
         Debug.Log($"[{nameof(TeacherManager)} - {nameof(HandleIncorrectObjection)}]");
         StartCoroutine(ErrorSoundDelay(2f));
-        
-        // do any animations and shit here
     }
 
     private IEnumerator ErrorSoundDelay(float delay){
@@ -132,7 +131,7 @@ public class TeacherManager : MonoBehaviour
         Debug.LogError($"Failure occurred in {nameof(TeacherManager)}.");
     }
 
-    public void HandleReasonPanelChoice(string choice)
+    public void HandleReasonPanelChoice(string choice, Action<bool, Action> onAnswerConfirmed)
     {
         Debug.Log("Player chose: " + choice);
 
@@ -141,7 +140,8 @@ public class TeacherManager : MonoBehaviour
         DialogueData currentDialogueData = dialogue.DialogueData[currentLineIndex];
 
         string correctSubstring = currentDialogueData.CorrectSubstring;
-        if (choice.Equals(correctSubstring, System.StringComparison.OrdinalIgnoreCase))
+        var isAnswerCorrect = choice.Equals(correctSubstring, System.StringComparison.OrdinalIgnoreCase);
+        if (isAnswerCorrect)
         {
             PlayerSettings.instance.AddScore(10);
             HUDManager.instance.pointsText.text = PlayerSettings.instance.Score.ToString();
@@ -151,6 +151,18 @@ public class TeacherManager : MonoBehaviour
             PlayerSettings.instance.AddScore(-10);
             HUDManager.instance.pointsText.text = PlayerSettings.instance.Score.ToString();
         }
-        ObjectionState.instance.onObjectionEnd.Invoke();
+        
+        onAnswerConfirmed?.Invoke(isAnswerCorrect, HandleObjectionActionsCompleted);
+        return;
+        
+        void HandleObjectionActionsCompleted()
+        {
+            ObjectionState.instance.onObjectionEnd.Invoke();
+        }
+    }
+
+    private void PlayAnswerFeedback()
+    {
+        
     }
 }

@@ -19,9 +19,11 @@ public class DialogueTool : MonoBehaviour
 {
     [Header("Text")]
     [SerializeField] private TextAsset adminDialogueFile;
+    [SerializeField] private string entrySeparatorString = "\",\"";
     [SerializeField, Min(0)] private int linesToSkip;
     [SerializeField] private string erroneousStatementReplacementText = "...";
     [SerializeField] private string boolConfirmationText = "oui";
+    [SerializeField] private string forgottenConfirmationText = "info manquante";
     
     [Header("Indexing")]
     [SerializeField] private int statementStringColumnIndex;
@@ -75,10 +77,10 @@ public class DialogueTool : MonoBehaviour
             return null;
         }
         
-        var data = adminDialogueEntry.Split(";");
+        var data = adminDialogueEntry.Split(entrySeparatorString);
         
         // Return if the statement is empty
-        var statementString = data[statementStringColumnIndex];
+        var statementString = ProcessString(data[statementStringColumnIndex]);
         if (string.IsNullOrWhiteSpace(statementString))
         {
             return null;
@@ -86,8 +88,8 @@ public class DialogueTool : MonoBehaviour
         
         // Return if the necessary information is empty
         var isStatementErroneous = data[erroneousBoolColumnIndex].ToLower().Contains(boolConfirmationText);
-        var incorrectSubstring = data[incorrectSubstringColumnIndex];
-        var correctSubstring = data[correctSubstringColumnIndex];
+        var incorrectSubstring = ProcessString(data[incorrectSubstringColumnIndex]);
+        var correctSubstring = ProcessString(data[correctSubstringColumnIndex]);
         
         if (isStatementErroneous &&
             (string.IsNullOrWhiteSpace(incorrectSubstring) || string.IsNullOrWhiteSpace(correctSubstring)))
@@ -95,11 +97,17 @@ public class DialogueTool : MonoBehaviour
             return null;
         }
         
+        var isErrorCausedByForgetfulness = data[forgottenBoolColumnIndex].ToLower().Contains(forgottenConfirmationText);
+        
+        var wordBankStrings = ProcessString(data[wordBankStringsColumnIndex]).Split(",").ToList();
+        var processedWordBankStrings = new List<string>();
+        foreach (var wordBankString in wordBankStrings)
+        {
+            processedWordBankStrings.Add(wordBankString.Trim());
+        }
+        
         var pointsTextExtracted = string.Join("",
             _validateNumberRegex.Matches(data[pointsScoredColumnIndex]).Select(x => x.Value).ToArray());
-        
-        var isErrorCausedByForgetfulness = data[forgottenBoolColumnIndex].ToLower().Contains(boolConfirmationText);
-        var wordBankStrings = data[wordBankStringsColumnIndex].Split(", ").ToList();
         var pointsScored = pointsTextExtracted.Length == 0 ? 0 : Convert.ToInt32(pointsTextExtracted);
         
         // Process statement depending on whether the statement is erroneous or not
@@ -110,9 +118,9 @@ public class DialogueTool : MonoBehaviour
                 : incorrectSubstring);
         
         // Check if the answer is within the options
-        if (!wordBankStrings.Contains(correctSubstring))
+        if (!processedWordBankStrings.Contains(correctSubstring))
         {
-            wordBankStrings.Add(correctSubstring);
+            processedWordBankStrings.Add(correctSubstring);
         }
         
         var dialogueData = new DialogueData
@@ -121,10 +129,32 @@ public class DialogueTool : MonoBehaviour
             IsStatementErroneous = isStatementErroneous,
             IsErrorCausedByForgetfulness = isErrorCausedByForgetfulness,
             CorrectSubstring = correctSubstring,
-            WordBankStrings = wordBankStrings,
+            WordBankStrings = processedWordBankStrings,
             PointsScored = pointsScored,
         };
         
         return dialogueData;
+    }
+
+    private string ProcessString(string stringToProcess)
+    {
+        if (string.IsNullOrWhiteSpace(stringToProcess) || stringToProcess.Length == 0)
+        {
+            return stringToProcess;
+        }
+        
+        var processedString = stringToProcess;
+        
+        if (stringToProcess[..1].Equals("\""))
+        {
+            processedString = processedString[1..];
+        }
+        
+        if (stringToProcess[^1..].Equals("\""))
+        {
+            processedString = processedString[..^1];
+        }
+        
+        return processedString.Trim();
     }
 }

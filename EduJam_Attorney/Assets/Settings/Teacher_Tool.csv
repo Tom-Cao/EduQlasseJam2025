@@ -1,110 +1,25 @@
-ï»¿;(game title) - OUTIL POUR PROFRESSEUR.E;;;;;;;;;;
-;;;;;;;;;;;
-;Nom du professeur.e;;;Export to CSV;;;;;;;
-;Nom/Code du cours;;;;;;;;;;
-;Nom du Livre;;;;;;;;;;
-;ISBN;;;;;;;;;;
-;;;;;;;;;;;
-;Numero Phrase;Phrase;Erreur?;Erreur (0) ou Info Manquante (1);Mot Correct;Mot ErronÃ©;Autres options;Points;;;
-;1;I love studying.; Oui ;0;studying;eating;gaming, watching TV;3;;;
-;2;I am the best singer.; Non ;-;-;-;-;-;;;
-;3;Yesterday, I ate a sandwich.; Oui ;oui;a sandwich;-;soup, potatoes;3;;;
-;4;; Non ;-;-;-;-;-;;;
-;5;;;;;;;;;;
-;6;;;;;;;;;;
-;7;;;;;;;;;;
-;8;;;;;;;;;;
-;9;;;;;;;;;;
-;10;;;;;;;;;;
-;11;;;;;;;;;;
-;12;;;;;;;;;;
-;13;;;;;;;;;;
-;14;;;;;;;;;;
-;15;;;;;;;;;;
-;16;;;;;;;;;;
-;17;;;;;;;;;;
-;18;;;;;;;;;;
-;19;;;;;;;;;;
-;20;;;;;;;;;;
-;21;;;;;;;;;;
-;22;;;;;;;;;;
-;23;;;;;;;;;;
-;24;;;;;;;;;;
-;25;;;;;;;;;;
-;26;;;;;;;;;;
-;27;;;;;;;;;;
-;28;;;;;;;;;;
-;29;;;;;;;;;;
-;30;;;;;;;;;;
-;31;;;;;;;;;;
-;32;;;;;;;;;;
-;33;;;;;;;;;;
-;34;;;;;;;;;;
-;35;;;;;;;;;;
-;36;;;;;;;;;;
-;37;;;;;;;;;;
-;38;;;;;;;;;;
-;39;;;;;;;;;;
-;40;;;;;;;;;;
-;41;;;;;;;;;;
-;42;;;;;;;;;;
-;43;;;;;;;;;;
-;44;;;;;;;;;;
-;45;;;;;;;;;;
-;46;;;;;;;;;;
-;47;;;;;;;;;;
-;48;;;;;;;;;;
-;49;;;;;;;;;;
-;50;;;;;;;;;;
-;51;;;;;;;;;;
-;52;;;;;;;;;;
-;53;;;;;;;;;;
-;54;;;;;;;;;;
-;55;;;;;;;;;;
-;56;;;;;;;;;;
-;57;;;;;;;;;;
-;58;;;;;;;;;;
-;59;;;;;;;;;;
-;60;;;;;;;;;;
-;61;;;;;;;;;;
-;62;;;;;;;;;;
-;63;;;;;;;;;;
-;64;;;;;;;;;;
-;65;;;;;;;;;;
-;66;;;;;;;;;;
-;67;;;;;;;;;;
-;68;;;;;;;;;;
-;69;;;;;;;;;;
-;70;;;;;;;;;;
-;71;;;;;;;;;;
-;72;;;;;;;;;;
-;73;;;;;;;;;;
-;74;;;;;;;;;;
-;75;;;;;;;;;;
-;76;;;;;;;;;;
-;77;;;;;;;;;;
-;78;;;;;;;;;;
-;79;;;;;;;;;;
-;80;;;;;;;;;;
-;81;;;;;;;;;;
-;82;;;;;;;;;;
-;83;;;;;;;;;;
-;84;;;;;;;;;;
-;85;;;;;;;;;;
-;86;;;;;;;;;;
-;87;;;;;;;;;;
-;88;;;;;;;;;;
-;89;;;;;;;;;;
-;90;;;;;;;;;;
-;91;;;;;;;;;;
-;92;;;;;;;;;;
-;93;;;;;;;;;;
-;94;;;;;;;;;;
-;95;;;;;;;;;;
-;96;;;;;;;;;;
-;97;;;;;;;;;;
-;98;;;;;;;;;;
-;99;;;;;;;;;;
-;100;;;;;;;;;;
-;;;;;;;;;;;
-;;;;;;;;;;;
+"1","Le Petit Prince visite plusieurs planètes."," Oui ","Erreur"," plusieurs "," une "," une seule, deux ","2"
+"2","Le narrateur est un aviateur."," Non ","-"," - "," - "," - ","-"
+"3","Le style est simple mais rempli de métaphores."," Non ","-"," - "," - "," - ","-"
+"4","Le point de vue est interne, à la première personne."," Oui ","Erreur"," interne "," omniscient "," externe, objectif ","3"
+"5","Le serpent aide le Petit Prince à retourner chez lui."," Oui ","Info Manquante"," retourner chez lui "," - "," mourir, se sauver ","2"
+"6","Le renard apprend au Petit Prince ce qu’est l’amitié."," Non ","-"," - "," - "," - ","-"
+"7","La rose représente l’amour unique."," Non ","-"," - "," - "," - ","-"
+"8","Le roi est un personnage secondaire."," Oui ","Erreur"," secondaire "," principal "," héros, narrateur ","2"
+"9","Le livre se passe seulement sur la Terre."," Oui ","Erreur"," plusieurs lieux "," seulement "," sur Terre uniquement ","3"
+"10","Le businessman incarne l’absurdité du matérialisme."," Oui ","Info Manquante"," matérialisme "," - "," logique, routine ","2"
+"11","Le narrateur raconte l’histoire après son accident dans le désert.","Non","-","-","-","-","-"
+"12","Le Petit Prince vient de l’astéroïde B-612.","Non","-","-","-","-","-"
+"13","Le pilote ne comprend pas immédiatement l’importance de la rose.","Oui","Info Manquante","importance de la rose","-","le lien affectif, l’amour","2"
+"14","La planète du vaniteux est la plus grande.","Oui","Erreur","plus petite","plus grande","immense, vaste","3"
+"15","Le Petit Prince quitte sa planète à cause d’un désaccord avec la rose.","Oui","Info Manquante","désaccord avec la rose","-","curiosité, besoin d’explorer","2"
+"16","Le livre contient plusieurs critiques de la société adulte.","Non","-","-","-","-","-"
+"17","Le géographe ne connaît pas sa propre planète.","Non","-","-","-","-","-"
+"18","La langue utilisée est dépourvue de poésie.","Oui","Erreur","pleine de poésie","dépourvue","plate, banale","3"
+"19","Le Petit Prince refuse d’apprivoiser le renard.","Oui","Erreur","accepte","refuse","ignore, fuit","2"
+"20","Le narrateur dessine un mouton pour le Petit Prince.","Non","-","-","-","-","-"
+"22","","","","","","",""
+"23","","","","","","",""
+"24","","","","","","",""
+"25","","","","","","",""
+"","","","","","","",""

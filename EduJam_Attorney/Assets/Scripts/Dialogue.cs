@@ -19,11 +19,22 @@ public class Dialogue : MonoBehaviour
         get { return currentLineIndex; }
         set { currentLineIndex = value; }
     }
-
-    //getter for the dialogueLines
-    public string[] DialogueLines
+    
+    public string[] GetDialogueStatements()
     {
-        get { return dialogueLines; }
+        if (!useDialogueTool)
+        {
+            return dialogueLines;
+        }
+
+        var dialogueStatementsCount = _dialogueData.Count;
+        var dialogueStatements = new string[dialogueStatementsCount];
+        for (var i = 0; i < dialogueStatementsCount; i++)
+        {
+            dialogueStatements[i] = _dialogueData[i].Statement;
+        }
+
+        return dialogueStatements;
     }
 
     [SerializeField] int currentLineIndex = 0;
