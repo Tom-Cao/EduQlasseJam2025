@@ -21,7 +21,7 @@ public class InputController : MonoBehaviour
     HUDManager hUDManager; // Reference to the HUDManager
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
        hUDManager = HUDManager.instance; // Get the instance of the HUDManager class
         if (hUDManager == null)

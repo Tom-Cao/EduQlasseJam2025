@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pitchLevel: 1
+  score: 0
 --- !u!114 &3772782076302325154
 MonoBehaviour:
   m_ObjectHideFlags: 0
