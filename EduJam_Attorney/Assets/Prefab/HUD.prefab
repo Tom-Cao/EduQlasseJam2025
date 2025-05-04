@@ -393,8 +393,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 165.64996, y: -110.81}
-  m_SizeDelta: {x: 331.31, y: 151.48}
+  m_AnchoredPosition: {x: 224.03998, y: -132.71}
+  m_SizeDelta: {x: 209.22, y: 107.69}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4747525290252210001
 CanvasRenderer:
@@ -1946,9 +1946,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1597147817
-  m_SortingLayer: -1
-  m_SortingOrder: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: -99
   m_Sprite: {fileID: 124544503961861040, guid: 19ccdabcd0724394dbe1acb520cea82e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
