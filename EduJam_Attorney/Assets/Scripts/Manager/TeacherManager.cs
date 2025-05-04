@@ -97,7 +97,7 @@ public class TeacherManager : MonoBehaviour
     private void HandleIncorrectObjection(DialogueData dialogueData)
     {
         Debug.Log($"[{nameof(TeacherManager)} - {nameof(HandleIncorrectObjection)}]");
-        StartCoroutine(ErrorSoundDelay(2f));
+        StartCoroutine(ErrorSoundDelay(1f));
     }
 
     private IEnumerator ErrorSoundDelay(float delay){
@@ -121,6 +121,7 @@ public class TeacherManager : MonoBehaviour
             HUDManager.instance.ShowHideAllButtonsAndDialogueBox(false);
             // Show score panel
             HUDManager.instance.ToggleScorePanel();
+            ScorePanel.instance.HandleGameOver();
         }
 
         AudioManager.instance.PlayBGM();
