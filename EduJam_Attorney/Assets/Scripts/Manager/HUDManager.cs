@@ -179,10 +179,40 @@ public class HUDManager : MonoBehaviour
         }
     }
 
-    // Hide or unhide the dialogue box and background
-    public void ShowHideDialogueBoxAndBackground(bool active)
+    [ContextMenu("Toggle Score Panel")]
+    public void ToggleScorePanel()
     {
-        ShowHideDialogueBox(active); // Call the method to show/hide the dialogue box
-        ShowHideBackground(active); // Call the method to show/hide the background
+        ScorePanel scorePanel = ScorePanel.instance; // Get the instance of the ReasonPanel script
+        if (scorePanel != null)
+        {
+            scorePanel.hidden = !scorePanel.hidden; // Toggle the hidden state of the reason panel
+        }
+        else
+        {
+            Debug.LogError("Toggle Score Panel is not assigned or found in the scene.");
+        }
+    }
+
+    // Hide or unhide the score panel
+    public void ShowHideScorePanel(bool active)
+    {
+        ScorePanel scorePanel = ScorePanel.instance;
+        if (scorePanel != null)
+        {
+            scorePanel.hidden = !active; // Set the active state of the score panel GameObject
+        }
+        else
+        {
+            Debug.LogError("ScorePanel GameObject is not assigned or found in the scene.");
+        }
+    }
+
+    // Hide buttons, dialogue box, reason panel and objection word
+    public void ShowHideAllButtonsAndDialogueBox(bool active)
+    {
+        ShowHidePreviousButton(active); // Hide the previous button
+        ShowHideNextButton(active); // Hide the next button
+        ShowHideObjectionWord(active); // Hide the objection word
+        ShowHideDialogueBox(active); // Hide the dialogue box
     }
 }

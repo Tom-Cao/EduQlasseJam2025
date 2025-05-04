@@ -88,6 +88,7 @@ public class TeacherManager : MonoBehaviour
         // do any animations and shit here
 
         HUDManager HUD = HUDManager.instance;
+        ReasonPanel.instance.BuildPanel();
         HUD.ToggleReasonPanel();
 
         player.HandleCorrectObjection(dialogueData);
@@ -115,17 +116,14 @@ public class TeacherManager : MonoBehaviour
 
     public void HandleObjectionEnd(){
         if(IncorrectObjectionIndices.Count <=0){
-            Debug.Log("Game Over");
-            // Quit Game
-            #if UNITY_EDITOR
-            EditorApplication.ExitPlaymode();
-            #else
-            Application.Quit();
-            #endif
+            Debug.Log("Game Over!");
+            // Hide UIs
+            HUDManager.instance.ShowHideAllButtonsAndDialogueBox(false);
+            // Show score panel
+            HUDManager.instance.ToggleScorePanel();
         }
-        else{
-            AudioManager.instance.PlayBGM();
-        }
+
+        AudioManager.instance.PlayBGM();
     }
 
     private void HandleMethodFailure()

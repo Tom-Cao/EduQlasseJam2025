@@ -9,7 +9,7 @@ public class ReasonPanel : MonoBehaviour
 {
     [Header("Positioning")]
     public Vector3 reasonPanelPosition;
-    [SerializeField] private float speed = 10f;
+    [SerializeField] private float speed = 5f;
     public bool hidden = true;
     [SerializeField] private RectTransform hiddenRectTransform;
 
@@ -142,7 +142,7 @@ public class ReasonPanel : MonoBehaviour
     {
         // MAGIC NUMBER: world coordinates
         if (hidden)
-            reasonPanelPosition = new Vector3(0, -15f, 0); // Move the panel down if hidden
+            reasonPanelPosition = new Vector3(0, -30f, 0); // Move the panel down if hidden
         else
             reasonPanelPosition = new Vector3(0, -2f, 0); // Move the panel up if not hidden
         // move to reasonPanelPosition
