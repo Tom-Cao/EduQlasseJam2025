@@ -132,11 +132,6 @@ public class ReasonPanel : MonoBehaviour
         
         onShowResultsCompleted?.Invoke();
     }
-    
-    public void Start()
-    {
-        BuildPanel(); // Build the panel when the script is loaded
-    }
 
     public void Update()
     {
