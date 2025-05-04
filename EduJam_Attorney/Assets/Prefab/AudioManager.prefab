@@ -146,6 +146,7 @@ MonoBehaviour:
   ObjectionMaleSFX: {fileID: 8300000, guid: 4db440b10825af54c9c57e189a2f640b, type: 3}
   ObjectionFemaleSFX: {fileID: 8300000, guid: eaabc1398d37e7744b6744a99cfafead, type: 3}
   oneShotSource: {fileID: 9028115043288817773}
+  DialogueBGMClip: {fileID: 8300000, guid: 52b5d60c59fe65e468b74220f26529df, type: 3}
   BGMusic: {fileID: 3717513414156790635}
 --- !u!82 &3717513414156790635
 AudioSource:
@@ -159,10 +160,10 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
