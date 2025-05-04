@@ -956,16 +956,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   adminDialogueFile: {fileID: 4900000, guid: 9c939bf925033ef418c2092088f26e2b, type: 3}
-  linesToSkip: 8
+  linesToSkip: 0
   erroneousStatementReplacementText: ...
   boolConfirmationText: oui
-  statementStringColumnIndex: 2
-  erroneousBoolColumnIndex: 3
-  forgottenBoolColumnIndex: 4
-  incorrectSubstringColumnIndex: 6
-  correctSubstringColumnIndex: 5
-  wordBankStringsColumnIndex: 7
-  pointsScoredColumnIndex: 8
+  forgottenConfirmationText: info manquante
+  statementStringColumnIndex: 1
+  erroneousBoolColumnIndex: 2
+  forgottenBoolColumnIndex: 3
+  incorrectSubstringColumnIndex: 5
+  correctSubstringColumnIndex: 4
+  wordBankStringsColumnIndex: 6
+  pointsScoredColumnIndex: 7
 --- !u!1 &4718138942819469927
 GameObject:
   m_ObjectHideFlags: 0
@@ -1516,5 +1517,4 @@ MonoBehaviour:
   objectionWord: {fileID: 6130498265212133048}
   previousButton: {fileID: 1566695540060083118}
   nextButton: {fileID: 2958892147369438371}
-  objectionReasonPanel: {fileID: 4718138942819469927}
   pointsText: {fileID: 3304178084659685052}
