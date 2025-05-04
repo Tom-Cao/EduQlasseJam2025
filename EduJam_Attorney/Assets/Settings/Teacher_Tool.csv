@@ -6,9 +6,9 @@
 ;ISBN;;;;;;;;;;
 ;;;;;;;;;;;
 ;Numero Phrase;Phrase;Erreur?;Erreur (0) ou Info Manquante (1);Mot Correct;Mot Erroné;Autres options;Points;;;
-;1;I love studying.; Oui ;;;;;;;;
+;1;I love studying.; Oui ;0;studying;eating;gaming, watching TV;3;;;
 ;2;I am the best singer.; Non ;-;-;-;-;-;;;
-;3;Yesterday, I ate a sandwich.; Oui ;;;;;;;;
+;3;Yesterday, I ate a sandwich.; Oui ;oui;a sandwich;-;soup, potatoes;3;;;
 ;4;; Non ;-;-;-;-;-;;;
 ;5;;;;;;;;;;
 ;6;;;;;;;;;;

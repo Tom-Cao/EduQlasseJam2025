@@ -103,7 +103,7 @@ public class DialogueTool : MonoBehaviour
         var pointsScored = pointsTextExtracted.Length == 0 ? 0 : Convert.ToInt32(pointsTextExtracted);
         
         // Process statement depending on whether the statement is erroneous or not
-        var processedStatement = isStatementErroneous
+        var processedStatement = !isStatementErroneous
             ? statementString
             : statementString.Replace(correctSubstring, isErrorCausedByForgetfulness
                 ? erroneousStatementReplacementText
