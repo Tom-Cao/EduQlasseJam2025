@@ -1,11 +1,10 @@
+using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class InputController : MonoBehaviour
 {
-    // Grab input system
-    //SimpleInput controls;
-
     // Main dialogue system
     Dialogue dialogue;
 
@@ -13,11 +12,16 @@ public class InputController : MonoBehaviour
 
     PlayerSettings playerSettings; // Reference to the PlayerSettings
 
+    HUDManager hUDManager; // Reference to the HUDManager
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
-        //controls = new SimpleInput();
+       hUDManager = HUDManager.instance; // Get the instance of the HUDManager class
+        if (hUDManager == null)
+        {
+            Debug.LogError("HUDManager instance not found in Input. Make sure the HUDManager script is attached to a GameObject in the scene.");
+        }
 
         if(audioManager == null)
         {
@@ -55,6 +59,7 @@ public class InputController : MonoBehaviour
             Debug.Log("Interact action triggered.");
         }
     }
+
     // Objection action
     public void ObjectionAction(InputAction.CallbackContext context)
     {
@@ -64,7 +69,7 @@ public class InputController : MonoBehaviour
             {
                 case PlayerSettings.PitchLevels.Low:
                     audioManager.oneShotSource.pitch = 0.75f; // Set the pitch to low
-                    audioManager.PlaySource(audioManager.ObjectionMaleSFX); // Play
+                    audioManager.PlaySource(audioManager.ObjectionMaleSFX);
                     break;
                 case PlayerSettings.PitchLevels.Medium:
                     audioManager.oneShotSource.pitch = 1f; // Set the pitch to medium
@@ -76,8 +81,19 @@ public class InputController : MonoBehaviour
                 default:
                     break;
             }
+
+            // Animation
+            hUDManager.ShowHideObjectionWord(true); // Show the objection word
+            StartCoroutine(HideObjectionWordAfterDelay(1f)); // Hide the objection word after 1 second
         }
     }
+
+    IEnumerator HideObjectionWordAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay); // Wait for the specified delay
+        hUDManager.ShowHideObjectionWord(false); // Hide the objection word
+    }
+
     // Text forward action
     public void TextForwardAction(InputAction.CallbackContext context)
     {
@@ -86,7 +102,6 @@ public class InputController : MonoBehaviour
             dialogue.NextLineInput();
         }
     }
-    
     // Text rollback action
     public void TextRollbackAction(InputAction.CallbackContext context)
     {
