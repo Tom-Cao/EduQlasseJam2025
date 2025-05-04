@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class InputController : MonoBehaviour
@@ -11,6 +12,8 @@ public class InputController : MonoBehaviour
     AudioManager audioManager; // Reference to the AudioManager
 
     PlayerSettings playerSettings; // Reference to the PlayerSettings
+
+    ObjectionState objectionState; // Reference to the ObjectionState
     
     private TeacherManager teacherManager;
     private PlayerManager playerManager;
@@ -78,14 +81,31 @@ public class InputController : MonoBehaviour
             teacherManager.Initialize(dialogue, playerManager);
             playerManager.Initialize(teacherManager);
         }
+
+        if (objectionState == null)
+        {
+            objectionState = ObjectionState.instance; // Get the instance of the ObjectionState class
+            if (objectionState == null)
+            {
+                Debug.LogError("ObjectionState instance not found in Input. Make sure the ObjectionState script is attached to a GameObject in the scene.");
+            }
+        }
+    }
+
+    public void Update()
+    {
+        // Check if the player is in an objection state
+        if(!isInObjection&&!audioManager.BGMusic.isPlaying){
+            audioManager.PlayBGM(); // Play the background music
+        }
     }
     
     // Interact action
     public void InteractAction(InputAction.CallbackContext context)
     {
-        if (isInObjection)
+        if (objectionState.currentState == ObjectionState.ObjectionStateType.Objection) // Check if the current state is Objection
         {
-            return;
+            return; // If in objection state, do nothing
         }
         
         if (context.performed) // Check if the action was performed
@@ -97,13 +117,16 @@ public class InputController : MonoBehaviour
     // Objection action
     public void ObjectionAction(InputAction.CallbackContext context)
     {
-        if (isInObjection)
-        {
-            return;
-        }
         
         if (context.performed) // Check if the action was performed
         {
+            if (objectionState.currentState == ObjectionState.ObjectionStateType.Objection) // Check if the current state is Objection
+            {
+                Debug.Log("Objection state end");
+                objectionState.onObjectionEnd.Invoke(); // Invoke the end of the objection state
+                return; // If in objection state, do nothing
+            }
+            audioManager.BGMusic.Stop(); // Stop the background music
             switch (playerSettings.pitchLevel) // Check the pitch level
             {
                 case PlayerSettings.PitchLevels.Low:
@@ -120,12 +143,11 @@ public class InputController : MonoBehaviour
                 default:
                     break;
             }
-            
+
+            objectionState.onObjectionStart.Invoke(); // Start the objection state
             teacherManager.HandleObjection();
             
-            // Animation
-            hUDManager.ShowHideObjectionWord(true); // Show the objection word
-            StartCoroutine(HideObjectionWordAfterDelay(1f)); // Hide the objection word after 1 second
+            
         }
     }
     
@@ -160,5 +182,13 @@ public class InputController : MonoBehaviour
         {
             dialogue.PreviousLineInput();
         }
+    }
+
+    public void SetInObjection(bool isInObjection)
+    {
+        this.isInObjection = isInObjection; // Set the in-objection state
+        // Animation
+        hUDManager.ShowHideObjectionWord(true); // Show the objection word
+        StartCoroutine(HideObjectionWordAfterDelay(1f)); // Hide the objection word after 1 second
     }
 }
