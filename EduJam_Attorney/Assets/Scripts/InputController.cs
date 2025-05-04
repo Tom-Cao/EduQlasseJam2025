@@ -17,8 +17,6 @@ public class InputController : MonoBehaviour
     
     private TeacherManager teacherManager;
     private PlayerManager playerManager;
-    
-    private bool isInObjection;
 
     HUDManager hUDManager; // Reference to the HUDManager
 
@@ -95,7 +93,7 @@ public class InputController : MonoBehaviour
     public void Update()
     {
         // Check if the player is in an objection state
-        if(!isInObjection&&!audioManager.BGMusic.isPlaying){
+        if(objectionState.currentState == ObjectionState.ObjectionStateType.Dialogue&&!audioManager.BGMusic.isPlaying){
             audioManager.PlayBGM(); // Play the background music
         }
     }
@@ -145,7 +143,6 @@ public class InputController : MonoBehaviour
             }
 
             objectionState.onObjectionStart.Invoke(); // Start the objection state
-            teacherManager.HandleObjection();
             
             
         }
@@ -160,9 +157,9 @@ public class InputController : MonoBehaviour
     // Text forward action
     public void TextForwardAction(InputAction.CallbackContext context)
     {
-        if (isInObjection)
+        if(objectionState.currentState == ObjectionState.ObjectionStateType.Objection) // Check if the current state is Objection
         {
-            return;
+            return; // If in objection state, do nothing
         }
         
         if (context.performed) // Check if the action was performed
@@ -173,7 +170,7 @@ public class InputController : MonoBehaviour
     // Text rollback action
     public void TextRollbackAction(InputAction.CallbackContext context)
     {
-        if (isInObjection)
+        if (objectionState.currentState == ObjectionState.ObjectionStateType.Objection) // Check if the current state is Objection
         {
             return;
         }
@@ -184,9 +181,8 @@ public class InputController : MonoBehaviour
         }
     }
 
-    public void SetInObjection(bool isInObjection)
+    public void SetInObjection()
     {
-        this.isInObjection = isInObjection; // Set the in-objection state
         // Animation
         hUDManager.ShowHideObjectionWord(true); // Show the objection word
         StartCoroutine(HideObjectionWordAfterDelay(1f)); // Hide the objection word after 1 second

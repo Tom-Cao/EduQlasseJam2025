@@ -20,9 +20,21 @@ public class Dialogue : MonoBehaviour
         set { currentLineIndex = value; }
     }
 
+    //getter for the dialogueLines
+    public string[] DialogueLines
+    {
+        get { return dialogueLines; }
+    }
+
     [SerializeField] int currentLineIndex = 0;
 
     private List<DialogueData> _dialogueData;
+
+    //getter for the dialogueData
+    public List<DialogueData> DialogueData
+    {
+        get { return _dialogueData; }
+    }
     private bool _useDialogueData;
 
     private void Awake(){
@@ -102,9 +114,6 @@ public class Dialogue : MonoBehaviour
             dialogueText.text = string.Empty; // Clear the text for the next line
             StartCoroutine(TypeLetters());
         }
-        else{
-            gameObject.SetActive(false); // Deactivate the dialogue box when finished
-        }
     }
 
     void PreviousLine(){
@@ -112,9 +121,6 @@ public class Dialogue : MonoBehaviour
             currentLineIndex--;
             dialogueText.text = string.Empty;
             StartCoroutine(TypeLetters());
-        }
-        else{
-            //Make a sound or visual cue that the player is at the beginning of the dialogue
         }
     }
 }

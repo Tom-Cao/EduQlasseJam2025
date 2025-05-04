@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEditor;
+using UnityEngine;
 
 public class TeacherManager : MonoBehaviour
 {
@@ -6,6 +8,8 @@ public class TeacherManager : MonoBehaviour
     private PlayerManager player;
     
     public static TeacherManager Instance;
+
+    public List<int> IncorrectObjectionIndices { get; } = new List<int>();
 
     private void Awake()
     {
@@ -16,6 +20,20 @@ public class TeacherManager : MonoBehaviour
         }
         
         Destroy(this);
+    }
+
+    private void Start()
+    {
+        foreach (var dialogueData in dialogue.DialogueData)
+        {
+            if (dialogueData.IsStatementErroneous)
+            {
+                IncorrectObjectionIndices.Add(dialogue.DialogueData.IndexOf(dialogueData));
+                Debug.Log("Index of Incorrect Objection: " + dialogue.DialogueData.IndexOf(dialogueData));
+            }
+            
+        }
+        Debug.Log("Incorrect Number of Statements: " + IncorrectObjectionIndices.Count);
     }
 
     public void Initialize(Dialogue dialogue, PlayerManager player)
@@ -30,6 +48,12 @@ public class TeacherManager : MonoBehaviour
         {
             HandleMethodFailure();
             return;
+        }
+
+        int currentIndex = dialogue.CurrentLineIndex;
+        if(IncorrectObjectionIndices.Contains(currentIndex))
+        {
+            IncorrectObjectionIndices.Remove(currentIndex);
         }
         
         var nullableDialogueData = dialogue.GetCurrentDialogueData();
@@ -61,6 +85,18 @@ public class TeacherManager : MonoBehaviour
         Debug.Log($"[{nameof(TeacherManager)} - {nameof(HandleIncorrectObjection)}]");
         // do any animations and shit here
         player.HandleIncorrectObjection(dialogueData);
+    }
+
+    public void HandleObjectionEnd(){
+        if(IncorrectObjectionIndices.Count <=0){
+            Debug.Log("Game Over");
+            // Quit Game
+            #if UNITY_EDITOR
+            EditorApplication.ExitPlaymode();
+            #else
+            Application.Quit();
+            #endif
+        }
     }
 
     private void HandleMethodFailure()
