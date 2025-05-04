@@ -11,6 +11,7 @@ public struct DialogueData
     public bool IsStatementErroneous;
     public bool IsErrorCausedByForgetfulness;
     public string CorrectSubstring;
+    public string IncorrectSubstring;
     public List<string> WordBankStrings;
     public int PointsScored;
 }
@@ -88,7 +89,8 @@ public class DialogueTool : MonoBehaviour
         
         // Return if the necessary information is empty
         var isStatementErroneous = data[erroneousBoolColumnIndex].ToLower().Contains(boolConfirmationText);
-        var incorrectSubstring = ProcessString(data[incorrectSubstringColumnIndex]);
+        var isErrorCausedByForgetfulness = data[forgottenBoolColumnIndex].ToLower().Contains(forgottenConfirmationText);
+        var incorrectSubstring = isErrorCausedByForgetfulness ? erroneousStatementReplacementText : ProcessString(data[incorrectSubstringColumnIndex]);
         var correctSubstring = ProcessString(data[correctSubstringColumnIndex]);
         
         if (isStatementErroneous &&
@@ -96,8 +98,7 @@ public class DialogueTool : MonoBehaviour
         {
             return null;
         }
-        
-        var isErrorCausedByForgetfulness = data[forgottenBoolColumnIndex].ToLower().Contains(forgottenConfirmationText);
+    
         
         var wordBankStrings = ProcessString(data[wordBankStringsColumnIndex]).Split(",").ToList();
         var processedWordBankStrings = new List<string>();
@@ -113,9 +114,7 @@ public class DialogueTool : MonoBehaviour
         // Process statement depending on whether the statement is erroneous or not
         var processedStatement = !isStatementErroneous
             ? statementString
-            : statementString.Replace(correctSubstring, isErrorCausedByForgetfulness
-                ? erroneousStatementReplacementText
-                : incorrectSubstring);
+            : statementString.Replace(correctSubstring, incorrectSubstring);
         
         // Check if the answer is within the options
         if (!processedWordBankStrings.Contains(correctSubstring))
@@ -129,6 +128,7 @@ public class DialogueTool : MonoBehaviour
             IsStatementErroneous = isStatementErroneous,
             IsErrorCausedByForgetfulness = isErrorCausedByForgetfulness,
             CorrectSubstring = correctSubstring,
+            IncorrectSubstring = incorrectSubstring,
             WordBankStrings = processedWordBankStrings,
             PointsScored = pointsScored,
         };
@@ -156,5 +156,12 @@ public class DialogueTool : MonoBehaviour
         }
         
         return processedString.Trim();
+    }
+
+    public void UpdateDialogueString(int index, string correctStatement)
+    {
+        var dataToUpdate = _dialogueData[index];
+        dataToUpdate.Statement = correctStatement;
+        _dialogueData[index] = dataToUpdate;
     }
 }

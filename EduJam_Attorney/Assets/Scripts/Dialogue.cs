@@ -97,8 +97,7 @@ public class Dialogue : MonoBehaviour
             NextLine(); // Go to the next line when space is pressed
         }
         else{
-            StopAllCoroutines(); // Stop typing if space is pressed again
-            dialogueText.text = statementText; // Show the full line
+            ShowFullStatement(statementText);
         }
     }
 
@@ -133,5 +132,16 @@ public class Dialogue : MonoBehaviour
             dialogueText.text = string.Empty;
             StartCoroutine(TypeLetters());
         }
+    }
+
+    public void ShowFullStatement(string statementText)
+    {
+        StopAllCoroutines();
+        dialogueText.text = statementText;
+    }
+
+    public void UpdateDialogueString(int index, string correctStatement)
+    {
+        dialogueTool.UpdateDialogueString(index, correctStatement);
     }
 }

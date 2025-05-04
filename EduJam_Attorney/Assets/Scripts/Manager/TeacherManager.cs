@@ -139,8 +139,12 @@ public class TeacherManager : MonoBehaviour
         int currentLineIndex = dialogue.CurrentLineIndex;
         DialogueData currentDialogueData = dialogue.DialogueData[currentLineIndex];
 
-        string correctSubstring = currentDialogueData.CorrectSubstring;
+        var incorrectSubstring = currentDialogueData.IncorrectSubstring;
+        var correctSubstring = currentDialogueData.CorrectSubstring;
+
         var isAnswerCorrect = choice.Equals(correctSubstring, System.StringComparison.OrdinalIgnoreCase);
+        var correctStatement = currentDialogueData.Statement.Replace(incorrectSubstring, "<color=\"green\">" + correctSubstring + "</color>");
+
         if (isAnswerCorrect)
         {
             PlayerSettings.instance.AddScore(10);
@@ -157,12 +161,9 @@ public class TeacherManager : MonoBehaviour
         
         void HandleObjectionActionsCompleted()
         {
+            dialogue.UpdateDialogueString(currentLineIndex, correctStatement);
+            dialogue.ShowFullStatement(correctStatement);
             ObjectionState.instance.onObjectionEnd.Invoke();
         }
-    }
-
-    private void PlayAnswerFeedback()
-    {
-        
     }
 }
