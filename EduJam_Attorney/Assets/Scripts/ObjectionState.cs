@@ -27,7 +27,6 @@ public class ObjectionState : MonoBehaviour
         if (instance == null)
         {
             instance = this; // Assign the instance if it's null
-            DontDestroyOnLoad(gameObject); // Keep this object alive across scenes
         }
         else
         {

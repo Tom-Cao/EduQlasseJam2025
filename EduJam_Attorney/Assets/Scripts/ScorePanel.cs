@@ -82,7 +82,7 @@ public class ScorePanel : MonoBehaviour
     private void Start()
     {
         hidden = true;
-        highScoreText.text = "HIGHSCORE: " + getHighScore().ToString();
+        highScoreText.text = "Meilleur Score: " + getHighScore().ToString();
     }
 
     private void Update() 
@@ -107,11 +107,11 @@ public class ScorePanel : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadScene("Main Menu");
     }
 
-    public void HandleGameOver(object sender, System.EventArgs e)
+    public void HandleGameOver()
     {
-        gameState.text = "GAME OVER!";
+        gameState.text = "Jeu Terminer!";
         TrySetNewHighScore(PlayerSettings.instance.Score);
-        highScoreText.text = "HIGHSCORE: " + getHighScore().ToString();
+        highScoreText.text = "Meilleur Score: " + getHighScore().ToString();
     }
 
     public void HandleGameExit()
