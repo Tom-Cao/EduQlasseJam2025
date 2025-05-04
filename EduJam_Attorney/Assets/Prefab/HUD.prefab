@@ -652,14 +652,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   adminDialogueFile: {fileID: 4900000, guid: 9c939bf925033ef418c2092088f26e2b, type: 3}
-  linesToSkip: 9
+  linesToSkip: 8
   erroneousStatementReplacementText: ...
   boolConfirmationText: oui
   statementStringColumnIndex: 2
   erroneousBoolColumnIndex: 3
   forgottenBoolColumnIndex: 4
-  incorrectSubstringColumnIndex: 5
-  correctSubstringColumnIndex: 6
+  incorrectSubstringColumnIndex: 6
+  correctSubstringColumnIndex: 5
   wordBankStringsColumnIndex: 7
   pointsScoredColumnIndex: 8
 --- !u!1 &4784238224896316477
