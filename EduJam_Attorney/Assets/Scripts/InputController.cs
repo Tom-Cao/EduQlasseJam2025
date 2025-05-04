@@ -89,14 +89,6 @@ public class InputController : MonoBehaviour
             }
         }
     }
-
-    public void Update()
-    {
-        // Check if the player is in an objection state
-        if(objectionState.currentState == ObjectionState.ObjectionStateType.Dialogue&&!audioManager.BGMusic.isPlaying){
-            audioManager.PlayBGM(); // Play the background music
-        }
-    }
     
     // Interact action
     public void InteractAction(InputAction.CallbackContext context)

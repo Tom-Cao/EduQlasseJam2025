@@ -26,7 +26,6 @@ public class ReasonPanel : MonoBehaviour
             Destroy(gameObject); // Destroy duplicate instances
         }
 
-        BuildPanel(); // Build the panel when the script is loaded
     }
 
     public void BuildPanel()
@@ -100,6 +99,11 @@ public class ReasonPanel : MonoBehaviour
             UnityEngine.UI.Button uiButton = button.GetComponent<UnityEngine.UI.Button>();
             uiButton.onClick.AddListener(() => Debug.Log("Button " + i + " clicked")); // Add a click listener
         }
+    }
+
+    public void Start()
+    {
+        BuildPanel(); // Build the panel when the script is loaded
     }
 
     public void Update()

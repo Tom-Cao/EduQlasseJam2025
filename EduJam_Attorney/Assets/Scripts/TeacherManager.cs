@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -65,6 +66,7 @@ public class TeacherManager : MonoBehaviour
         var dialogueData = (DialogueData)nullableDialogueData;
         if (nullableDialogueData is { IsStatementErroneous: true })
         {
+            
             HandleCorrectObjection(dialogueData);
         }
         else
@@ -77,14 +79,23 @@ public class TeacherManager : MonoBehaviour
     {
         Debug.Log($"[{nameof(TeacherManager)} - {nameof(HandleCorrectObjection)}]");
         // do any animations and shit here
+
+        HUDManager HUD = HUDManager.instance;
+        HUD.ToggleReasonPanel();
         player.HandleCorrectObjection(dialogueData);
     }
 
     private void HandleIncorrectObjection(DialogueData dialogueData)
     {
         Debug.Log($"[{nameof(TeacherManager)} - {nameof(HandleIncorrectObjection)}]");
+        StartCoroutine(ErrorSoundDelay(2f));
         // do any animations and shit here
-        player.HandleIncorrectObjection(dialogueData);
+    }
+
+    private IEnumerator ErrorSoundDelay(float delay){
+        yield return new WaitForSeconds(delay);
+        AudioManager audioManager = AudioManager.instance;
+        audioManager.PlaySource(audioManager.errorSFX);
     }
 
     public void HandleObjectionEnd(){

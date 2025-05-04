@@ -8,6 +8,8 @@ public class AudioManager : MonoBehaviour
 
     public AudioClip ObjectionFemaleSFX; // Reference to the female objection sound effect
 
+    public AudioClip errorSFX; // Reference to the error sound effect
+
     public AudioSource oneShotSource; // Reference to the AudioSource component
 
     public AudioClip DialogueBGMClip; // Reference to the background music clip
@@ -47,6 +49,18 @@ public class AudioManager : MonoBehaviour
         else
         {
             Debug.LogError("AudioSource or AudioClip is null. Cannot play background music.");
+        }
+    }
+
+    public void StopBGM()
+    {
+        if (BGMusic != null)
+        {
+            BGMusic.Stop(); // Stop the background music
+        }
+        else
+        {
+            Debug.LogError("AudioSource is null. Cannot stop background music.");
         }
     }
 
