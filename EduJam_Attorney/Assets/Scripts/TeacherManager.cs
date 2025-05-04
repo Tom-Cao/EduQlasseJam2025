@@ -14,6 +14,8 @@ public class TeacherManager : MonoBehaviour
 
     public List<int> IncorrectObjectionIndices { get; } = new List<int>();
 
+    public bool[] isObjected;
+
     private void Awake()
     {
         if (Instance == null)
@@ -36,6 +38,8 @@ public class TeacherManager : MonoBehaviour
             }
             
         }
+
+        isObjected = new bool[dialogue.DialogueLines.Length];
         Debug.Log("Incorrect Number of Statements: " + IncorrectObjectionIndices.Count);
     }
 
@@ -64,11 +68,12 @@ public class TeacherManager : MonoBehaviour
         {
             return;
         }
-        
+
         var dialogueData = (DialogueData)nullableDialogueData;
-        if (nullableDialogueData is { IsStatementErroneous: true })
+        if (nullableDialogueData is { IsStatementErroneous: true }&& !isObjected[dialogue.CurrentLineIndex])
         {
-            
+            if(!(dialogue.CurrentLineIndex < 0 && dialogue.CurrentLineIndex < dialogue.DialogueLines.Length))
+                isObjected[dialogue.CurrentLineIndex] = true;
             HandleCorrectObjection(dialogueData);
         }
         else
@@ -102,6 +107,8 @@ public class TeacherManager : MonoBehaviour
         PlayerSettings.instance.AddScore(-10);
         hUDManager.pointsText.text = PlayerSettings.instance.Score.ToString();
 
+        yield return new WaitForSeconds(delay);
+
         // Reset event
         ObjectionState.instance.onObjectionEnd.Invoke();
     }
@@ -115,6 +122,9 @@ public class TeacherManager : MonoBehaviour
             #else
             Application.Quit();
             #endif
+        }
+        else{
+            AudioManager.instance.PlayBGM();
         }
     }
 
