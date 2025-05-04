@@ -38,8 +38,8 @@ public class TeacherManager : MonoBehaviour
             }
             
         }
-
-        isObjected = new bool[dialogue.DialogueLines.Length];
+        
+        isObjected = new bool[dialogue.GetDialogueStatements().Length];
         Debug.Log("Incorrect Number of Statements: " + IncorrectObjectionIndices.Count);
     }
 
@@ -72,7 +72,7 @@ public class TeacherManager : MonoBehaviour
         var dialogueData = (DialogueData)nullableDialogueData;
         if (nullableDialogueData is { IsStatementErroneous: true }&& !isObjected[dialogue.CurrentLineIndex])
         {
-            if(!(dialogue.CurrentLineIndex < 0 && dialogue.CurrentLineIndex < dialogue.DialogueLines.Length))
+            if(!(dialogue.CurrentLineIndex < 0 && dialogue.CurrentLineIndex < dialogue.GetDialogueStatements().Length))
                 isObjected[dialogue.CurrentLineIndex] = true;
             HandleCorrectObjection(dialogueData);
         }
